@@ -1,4 +1,4 @@
-<h2 class= 'text-center'>Apartments</h2>
+<h2 class= 'text-center text-secondary'>Apartments</h2>
 
 <br>
 <table class="table">
@@ -18,4 +18,7 @@
             </tr> <% end %>
         </tbody> 
 </table>
-<%= link_to 'New Apartment', new_apartment_path %>
+
+<div class="text-left my-4">
+<%= link_to 'New Apartment', new_apartment_path, class: 'btn btn-secondary' %>
+</div>
