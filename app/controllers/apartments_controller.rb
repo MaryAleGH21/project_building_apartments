@@ -1,25 +1,28 @@
 class ApartmentsController < ApplicationController
+  before_action :set_apartment, only: %i[ show edit update destroy ]
   
   def index 
-    @apartments = Apartment.all
+    @building = Building.find(params[:building_id])
+    @apartments = @building.apartments
   end
 
   def new
     @apartment = Apartment.new
-    @building = Building.pluck(:id, :name) #Pluck busca todos los registros del edificio
+    @building = Building.find(params[:building_id]) #Pluck busca todos los registros del edificio
   end
 
   def show
+    @building = Building.find(params[:building_id])
     @apartment = Apartment.find(params[ :id ])
-    end
+  end
 
-  def create 
-    def create
-      @apartment = Building.new(params[:number])
+  def create
+      building = Building.find(params[:building_id])
+      @apartment = Apartment.new(apartment_params.merge(building_id: building.id))
   
       respond_to do |format|
         if @apartment.save
-          format.html { redirect_to @apartment, notice: "Apartment was successfully created." }
+          format.html { redirect_to building_apartments_path(building.id), notice: "Apartment was successfully created." }
           format.json { render :show, status: :created, location: @apartment }
         else
           format.html { render :new, status: :unprocessable_entity }
@@ -27,7 +30,14 @@ class ApartmentsController < ApplicationController
         end
       end
     end
-  
-  end
 
+    private
+    def set_apartment
+      @apartment = Apartment.pluck(:name, :id)
+    end
+
+    #Strong params
+    def apartment_params
+      params.require(:apartment).permit(:number, :building_id)
+    end
 end

@@ -4,8 +4,8 @@
 <table class="table">
  <thead>
     <tr>
-      <th>Number</th>
-      <th>Building</th> 
+      <th>Building</th>
+      <th>Id</th> 
       <th colspan="3"></th>
     </tr>
  </thead>
@@ -13,7 +13,6 @@
   <tbody>
     <% @buildings.each do |building| %>
     <tr>
-    <th scope="row">1</th>
       <td><%= building.name %></td>
       <td><%= "id:#{building.id}" %></td>
       <td><%=link_to 'Show', building%></td>
